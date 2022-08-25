@@ -2,17 +2,19 @@ import React from 'react';
 import { BadgeWrapper } from "./Badge.style";
 
 interface IBadgeProps {
-  text: string;
+  children: React.ReactNode;
   backgroundColor: string;
+  className?: string;
 }
 
 const Badge: React.FC<IBadgeProps> = ({
-  text,
-  backgroundColor
+  children,
+  backgroundColor,
+  className = ''
 }) => {
   return (
-    <BadgeWrapper backgroundColor={backgroundColor}>
-      {text}
+    <BadgeWrapper backgroundColor={backgroundColor} className={className}>
+      { children }
     </BadgeWrapper>
   );
 };

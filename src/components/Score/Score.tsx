@@ -1,12 +1,18 @@
 import React from 'react';
 import { ScoreWrapper } from "./Score.style";
 
-const Score: React.FC = () => {
+interface IScoreProps {
+  score: number;
+}
+
+const Score: React.FC<IScoreProps> = ({
+  score
+}) => {
   return (
     <ScoreWrapper>
-      <div className="plus">+</div>
-      <input type="text" value="1" />
-      <div className="minus">-</div>
+      <div className="d-flex justify-content-center plus">+</div>
+      <input type="text" value={score} />
+      <div className="d-flex justify-content-center minus">-</div>
     </ScoreWrapper>
   );
 };

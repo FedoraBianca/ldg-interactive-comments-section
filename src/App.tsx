@@ -4,10 +4,8 @@ import CommentSection from './components/CommentSection';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app d-flex flex-row justify-content-center pt-5">
         <CommentSection />
-      </header>
     </div>
   );
 }
