@@ -16,7 +16,7 @@ const ProfilePicture: React.FC<IProfilePictureProps> = ({
   className = ''
 }) => {
   return (
-    <ProfilePictureWrapper size={size}>
+    <ProfilePictureWrapper size={size} className={className}>
       <img src={src} alt={alt} className={className} />
     </ProfilePictureWrapper>
   );

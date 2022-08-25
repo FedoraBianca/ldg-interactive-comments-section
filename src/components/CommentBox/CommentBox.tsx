@@ -15,10 +15,10 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
   comment,
   className = ''
 }) => {
-  const isOwner = true;
+  const isOwner = comment.user.username === 'juliusomo';
 
   return (
-    <CommentBoxWrapper className={`${className} d-flex flex-row px-4 py-4`}>
+    <CommentBoxWrapper className={`d-flex flex-row px-4 py-4 ${className}`}>
       <div className='mr-4'>
         <Score score={comment.score} />
       </div>
@@ -29,8 +29,7 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
           username={comment.user.username}
           time={comment.createdAt}
         />
-        <CommentBody />
-        <CommentForm comment={comment} />
+        <CommentBody content={comment.content} className='mt-3' />
       </div>
     </CommentBoxWrapper>
   );

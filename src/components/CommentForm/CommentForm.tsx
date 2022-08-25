@@ -4,21 +4,23 @@ import Button from '../Button';
 import { CommentFormWrapper } from "./CommentForm.style";
 
 interface ICommentFormProps {
-  comment: IComment;
+  value: string;
+  buttonText: string;
   className?: string;
 }
 
 
 const CommentForm: React.FC<ICommentFormProps> = ({
-  comment,
+  value,
+  buttonText = 'Submit',
   className = ''
 }) => {
   return (
     <CommentFormWrapper className={`d-flex flex-row align-items-start ${className}`}>
       <textarea id="content" name="content">
-        {comment.content}
+        {value}
       </textarea>
-      <Button type='button' className='ml-3'>Update</Button>
+      <Button type='button' className='ml-3'>{buttonText}</Button>
     </CommentFormWrapper>
   );
 };

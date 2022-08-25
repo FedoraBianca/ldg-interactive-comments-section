@@ -1,10 +1,18 @@
 import React from 'react';
 import { CommentBodyWrapper } from "./CommentBody.style";
 
-const CommentBody: React.FC = () => {
+interface ICommentBodyProps {
+  content: string;
+  className?: string;
+}
+
+const CommentBody: React.FC<ICommentBodyProps> = ({
+  content,
+  className = ''
+}) => {
   return (
-    <CommentBodyWrapper>
-      comment Body
+    <CommentBodyWrapper className={className}>
+      {content}
     </CommentBodyWrapper>
   );
 };
