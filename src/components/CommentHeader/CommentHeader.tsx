@@ -11,6 +11,7 @@ interface ICommentHeaderProps {
   image: IImage;
   username: string;
   time: string;
+  isEditMode?: boolean;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
   image,
   username,
   time,
+  isEditMode = false,
   className = ''
 }) => {
   return (
@@ -32,10 +34,22 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
 
       {
         isOwner && <div>
-          <Button type='button' theme='link' onClick={() => { }} className='mr-2'>
+          <Button
+            type='button'
+            theme='link'
+            onClick={() => { }}
+            className='mr-2'
+            disabled={isEditMode}
+            variant='danger'
+          >
             Delete
           </Button>
-          <Button type='button' theme='link' onClick={() => { }}>
+          <Button
+            type='button'
+            theme='link'
+            disabled={isEditMode}
+            onClick={() => { }}
+          >
             Edit
           </Button>
         </div>

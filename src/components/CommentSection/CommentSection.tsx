@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IComment } from '../../interfaces/comment';
 import CommentBox from '../CommentBox';
 import ReplyBox from '../ReplyBox';
 import { CommentSectionWrapper, SideLine } from "./CommentSection.style";
 
 const CommentSection: React.FC = () => {
-  const comments: IComment[] = [
+  const initialCommentList: IComment[] = [
     {
       id: 1,
       content: "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
@@ -64,6 +64,8 @@ const CommentSection: React.FC = () => {
       ]
     }
   ];
+
+  const [comments, setComments] = useState<IComment[]>(initialCommentList);
 
   return (
     <CommentSectionWrapper>

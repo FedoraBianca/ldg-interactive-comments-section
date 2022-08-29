@@ -4,7 +4,9 @@ import { DefaultButton, LinkButton } from "./Button.style";
 interface IButtonProps {
   type: 'button' | 'submit' | 'reset';
   theme?: 'default' | 'link';
+  variant?: 'default' | 'danger';
   onClick?: (e: React.MouseEvent) => void;
+  disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
 }
@@ -12,19 +14,29 @@ interface IButtonProps {
 const Button: React.FC<IButtonProps> = ({
   children = null,
   theme = 'delault',
+  variant = 'default',
   className = '',
+  disabled = false,
   ...rest
 }) => {
   switch (theme) {
     case 'link':
       return (
-        <LinkButton className={className} {...rest}>
+        <LinkButton
+          className={`${variant} ${className}`}
+          disabled={disabled}
+          {...rest}
+        >
           {children}
         </LinkButton>
       );
     default:
       return (
-        <DefaultButton className={className} {...rest}>
+        <DefaultButton
+          className={`${variant} ${className}`}
+          disabled={disabled}
+          {...rest}
+        >
           {children}
         </DefaultButton>
       );
