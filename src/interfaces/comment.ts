@@ -6,6 +6,6 @@ export interface IComment {
   createdAt: string;
   score: number;
   user: IUser;
-  replies?: IComment[];
+  replies: number[];
   replyingTo?: string;
 }
