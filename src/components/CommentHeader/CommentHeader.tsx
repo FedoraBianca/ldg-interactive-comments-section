@@ -11,6 +11,8 @@ interface ICommentHeaderProps {
   image: IImage;
   username: string;
   time: string;
+  onEdit: () => void;
+  onDelete: () => void;
   isEditMode?: boolean;
   className?: string;
 }
@@ -20,6 +22,8 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
   image,
   username,
   time,
+  onEdit,
+  onDelete,
   isEditMode = false,
   className = ''
 }) => {
@@ -37,7 +41,7 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
           <Button
             type='button'
             theme='link'
-            onClick={() => { }}
+            onClick={onDelete}
             className='mr-2'
             disabled={isEditMode}
             variant='danger'
@@ -48,7 +52,7 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
             type='button'
             theme='link'
             disabled={isEditMode}
-            onClick={() => { }}
+            onClick={onEdit}
           >
             Edit
           </Button>

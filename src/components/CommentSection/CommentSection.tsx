@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { IComment } from '../../interfaces/comment';
 import CommentBox from '../CommentBox';
 import ReplyBox from '../ReplyBox';
 import { CommentSectionWrapper, SideLine } from "./CommentSection.style";
+
+const generateId = (length: number): string => {
+  let result = '';
+
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
+};
 
 const CommentSection: React.FC = () => {
   const initialCommentList: IComment[] = [
@@ -73,13 +86,27 @@ const CommentSection: React.FC = () => {
     setComments(updatedComentList);
   }
 
-  const handleFormSubmit = (value: string) => {
-    console.log('Submit from comment section: ', value);
+  const addNewComment = (value: string) => {
+    const newComment: IComment = {
+      id: Number(generateId(10)),
+      content: value,
+      createdAt: moment().format('DD-MM-YYYY'),
+      score: 0,
+      user: {
+        image: {
+          png: "./images/avatars/image-juliusomo.png",
+          webp: "./images/avatars/image-juliusomo.webp"
+        },
+        username: "juliusomo"
+      },
+      replies: [],
+    };
+    setComments([...comments, newComment]);
   };
 
   return (
     <CommentSectionWrapper>
-      {comments.map((comment: IComment) => (
+      {comments.map((comment: IComment) => typeof comment.replyingTo === 'undefined' && (
         <div key={comment.id} className='w-100 d-flex flex-column'>
           <CommentBox comment={comment} onChange={handleCommentChange} className='mb-3' />
           {comment.replies && (
@@ -95,7 +122,7 @@ const CommentSection: React.FC = () => {
           )}
         </div>
       ))}
-      <ReplyBox buttonText='Send' onSubmit={handleFormSubmit} />
+      <ReplyBox buttonText='Send' onSubmit={addNewComment} />
     </CommentSectionWrapper>
   );
 };

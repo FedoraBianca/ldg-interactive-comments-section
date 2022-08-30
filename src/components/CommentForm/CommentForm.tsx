@@ -26,6 +26,7 @@ const CommentForm: React.FC<ICommentFormProps> = ({
 
   const handleSubmit = () => {
     onSubmit(value);
+    setValue('');
   };
 
   return (

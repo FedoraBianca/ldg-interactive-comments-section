@@ -19,7 +19,7 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
 }) => {
   const isOwner = comment.user.username === 'juliusomo';
   const [showReplyBox, setShowReplyBox] = useState<boolean>(false);
-  const [isEditMode, setIsEditMode] = useState<boolean>(true);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const handleScoreIncrease = () => {
     onChange({
@@ -40,17 +40,31 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
       ...comment,
       content: value
     });
+    setIsEditMode(false);
   };
 
   const handleReply = (value: string) => {
     console.log('Submit from comment section: ', value);
   };
 
+  const handleEdit = () => {
+    setIsEditMode(true);
+  }
+
+  const handleDelete = () => {
+    
+  }
+
   return (
     <div className={`d-flex flex-column ${className}`}>
       <CommentBoxWrapper className={`d-flex flex-row px-4 py-4 ${className}`}>
         <div className='mr-4'>
-          <Score score={comment.score} increaseScore={handleScoreIncrease} decreaseScore={handleScoreDecrease} />
+          <Score 
+            score={comment.score} 
+            increaseScore={handleScoreIncrease} 
+            decreaseScore={handleScoreDecrease}
+            disabled={isOwner}
+          />
         </div>
         <div className='w-100'>
           <CommentHeader
@@ -59,6 +73,8 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
             username={comment.user.username}
             time={comment.createdAt}
             isEditMode={isEditMode}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
           />
           <CommentBody
             content={comment.content}

@@ -9,10 +9,10 @@ export const DefaultButton = styled.button`
   border: none;
   border-radius: 10px;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:hover, &:active {
     background-color: #c4c6ef;
-    cursor: pointer;
   }
 
   &:disabled {
@@ -34,6 +34,7 @@ export const LinkButton = styled.button`
   color: #5b5aaa;
   border: none;
   font-weight: bold;
+  cursor: pointer;
 
   &:disabled {
     cursor: not-allowed;

@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { ScoreWrapper } from "./Score.style";
+import { ScoreButton, ScoreWrapper } from "./Score.style";
 
 interface IScoreProps {
   score: number;
   increaseScore: () => void;
   decreaseScore: () => void;
+  disabled?: boolean;
 }
 
 const Score: React.FC<IScoreProps> = ({
   score,
   increaseScore,
-  decreaseScore
+  decreaseScore,
+  disabled = false,
 }) => { 
   return (
     <ScoreWrapper>
-      <div className="d-flex justify-content-center plus" onClick={increaseScore}>+</div>
-      <input type="text" value={score} />
-      <div className="d-flex justify-content-center minus" onClick={decreaseScore}>-</div>
+      <ScoreButton className="d-flex justify-content-center plus" onClick={increaseScore} disabled={disabled}>+</ScoreButton>
+      <div>{score}</div>
+      <ScoreButton className="d-flex justify-content-center minus" onClick={decreaseScore} disabled={disabled}>-</ScoreButton>
     </ScoreWrapper>
   );
 };
