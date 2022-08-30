@@ -3,18 +3,20 @@ import { ScoreWrapper } from "./Score.style";
 
 interface IScoreProps {
   score: number;
+  increaseScore: () => void;
+  decreaseScore: () => void;
 }
 
 const Score: React.FC<IScoreProps> = ({
-  score
-}) => {
-  const [value, setValue] = useState<number>(score);  
-
+  score,
+  increaseScore,
+  decreaseScore
+}) => { 
   return (
     <ScoreWrapper>
-      <div className="d-flex justify-content-center plus">+</div>
-      <input type="text" value={value} />
-      <div className="d-flex justify-content-center minus">-</div>
+      <div className="d-flex justify-content-center plus" onClick={increaseScore}>+</div>
+      <input type="text" value={score} />
+      <div className="d-flex justify-content-center minus" onClick={decreaseScore}>-</div>
     </ScoreWrapper>
   );
 };

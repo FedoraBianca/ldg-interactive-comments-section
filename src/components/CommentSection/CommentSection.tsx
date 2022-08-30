@@ -67,24 +67,33 @@ const CommentSection: React.FC = () => {
 
   const [comments, setComments] = useState<IComment[]>(initialCommentList);
 
+  const handleCommentChange = (value: IComment) => {
+    const updatedComentList: IComment[] = comments.map((comment: IComment) => comment.id === value.id ? value : comment);
+    setComments(updatedComentList);
+  }
+
+  const handleFormSubmit = (value: string) => {
+    console.log('Submit from comment section: ', value);
+  };
+
   return (
     <CommentSectionWrapper>
       {comments.map((comment: IComment) => (
-        <div className='w-100 d-flex flex-column'>
-          <CommentBox comment={comment} className='mb-3' />
+        <div key={comment.id} className='w-100 d-flex flex-column'>
+          <CommentBox comment={comment} onChange={handleCommentChange} className='mb-3' />
           {comment.replies && (
             <div className='d-flex flex-row'>
               <SideLine />
               <div className='d-flex flex-column w-100'>
                 {comment.replies.map((reply: IComment) => (
-                  <CommentBox comment={reply} className='mb-3' />
+                  <CommentBox key={reply.id} comment={reply} onChange={handleCommentChange} className='mb-3' />
                 ))}
             </div>
             </div>
           )}
         </div>
       ))}
-      <ReplyBox buttonText='Send' />
+      <ReplyBox buttonText='Send' onSubmit={handleFormSubmit} />
     </CommentSectionWrapper>
   );
 };

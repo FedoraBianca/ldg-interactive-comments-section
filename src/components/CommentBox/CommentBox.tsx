@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IComment } from '../../interfaces/comment';
 import CommentBody from '../CommentBody';
-import CommentForm from '../CommentForm';
 import CommentHeader from '../CommentHeader';
 import ReplyBox from '../ReplyBox';
 import Score from '../Score';
@@ -9,22 +8,49 @@ import { CommentBoxWrapper } from "./CommentBox.style";
 
 interface ICommentBoxProps {
   comment: IComment;
+  onChange: (value: IComment) => void;
   className?: string;
 }
 
 const CommentBox: React.FC<ICommentBoxProps> = ({
   comment,
+  onChange,
   className = ''
 }) => {
   const isOwner = comment.user.username === 'juliusomo';
   const [showReplyBox, setShowReplyBox] = useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(true);
 
+  const handleScoreIncrease = () => {
+    onChange({
+      ...comment,
+      score: comment.score + 1
+    });
+  };
+
+  const handleScoreDecrease = () => {
+    onChange({
+      ...comment,
+      score: comment.score + 1
+    });
+  };
+
+  const handleCommentUpdate = (value: string) => {
+    onChange({
+      ...comment,
+      content: value
+    });
+  };
+
+  const handleReply = (value: string) => {
+    console.log('Submit from comment section: ', value);
+  };
+
   return (
     <div className={`d-flex flex-column ${className}`}>
       <CommentBoxWrapper className={`d-flex flex-row px-4 py-4 ${className}`}>
         <div className='mr-4'>
-          <Score score={comment.score} />
+          <Score score={comment.score} increaseScore={handleScoreIncrease} decreaseScore={handleScoreDecrease} />
         </div>
         <div className='w-100'>
           <CommentHeader
@@ -37,11 +63,12 @@ const CommentBox: React.FC<ICommentBoxProps> = ({
           <CommentBody
             content={comment.content}
             isEditMode={isEditMode}
+            onSubmit={handleCommentUpdate}
             className='mt-3' />
         </div>
       </CommentBoxWrapper>
 
-      {showReplyBox && (<ReplyBox />)}
+      {showReplyBox && (<ReplyBox onSubmit={handleReply} />)}
     </div>
   );
 };
