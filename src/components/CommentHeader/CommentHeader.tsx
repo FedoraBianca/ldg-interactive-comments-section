@@ -13,6 +13,7 @@ interface ICommentHeaderProps {
   time: string;
   onEdit: () => void;
   onDelete: () => void;
+  onReply: () => void;
   isEditMode?: boolean;
   className?: string;
 }
@@ -24,6 +25,7 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
   time,
   onEdit,
   onDelete,
+  onReply,
   isEditMode = false,
   className = ''
 }) => {
@@ -61,7 +63,7 @@ const CommentHeader: React.FC<ICommentHeaderProps> = ({
 
       {
         !isOwner && <div>
-          <Button type='button' theme='link' onClick={() => { }}>Reply</Button>
+          <Button type='button' theme='link' onClick={onReply}>Reply</Button>
         </div>
       }
     </CommentHeaderWrapper>

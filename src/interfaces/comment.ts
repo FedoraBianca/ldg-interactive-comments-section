@@ -1,11 +1,11 @@
 import { IUser } from "./user";
 
 export interface IComment {
-  id: number;
+  id: string;
   content: string;
   createdAt: string;
   score: number;
   user: IUser;
-  replies: number[];
-  replyingTo?: string;
+  replies: string[];
+  replyingTo: string | null;
 }
