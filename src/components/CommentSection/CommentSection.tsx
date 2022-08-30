@@ -97,8 +97,30 @@ const CommentSection: React.FC = () => {
   };
 
   const handleReplySubmit = (reply: IComment) => {
-    const commentList = comments.map((comment: IComment) => comment.id === reply.replyingTo ? { ...comment, replies: [ ...comment.replies, reply.id ]} : comment);
+    const commentList = comments.map((comment: IComment) => comment.id === reply.replyingTo ? { ...comment, replies: [...comment.replies, reply.id] } : comment);
     setComments([...commentList, reply]);
+  };
+
+  const returnReplyList = (comment: IComment): React.ReactNode => {
+    if (comment.replies && comment.replies.length > 0) {
+      return (
+        <div className='d-flex flex-row'>
+          <SideLine />
+          <div className='d-flex flex-column w-100'>
+            {comments.map((item: IComment) =>
+              comment.replies.includes(item.id) &&
+              (<div key={`${item.id}wrapper`} className='w-100 d-flex flex-column'>
+                <CommentBox key={item.id} comment={item} onChange={handleCommentChange} onReplySubmit={handleReplySubmit} className='mb-3' />
+                {returnReplyList(item)}
+              </div>)
+            )}
+          </div>
+        </div>
+      );
+    }
+    else {
+      return;
+    }
   };
 
   return (
@@ -106,17 +128,7 @@ const CommentSection: React.FC = () => {
       {comments.map((comment: IComment) => !comment.replyingTo && (
         <div key={comment.id} className='w-100 d-flex flex-column'>
           <CommentBox comment={comment} onChange={handleCommentChange} onReplySubmit={handleReplySubmit} className='mb-3' />
-          {comment.replies && (
-            <div className='d-flex flex-row'>
-              <SideLine />
-              <div className='d-flex flex-column w-100'>
-                {comment.replies.length > 0 && comments.map((item: IComment) => 
-                  comment.replies.includes(item.id) &&
-                  (<CommentBox key={item.id} comment={item} onChange={handleCommentChange} onReplySubmit={handleReplySubmit} className='mb-3' />)
-                )}
-              </div>
-            </div>
-          )}
+          {returnReplyList(comment)}
         </div>
       ))}
       <ReplyBox buttonText='Send' onSubmit={addNewComment} />
